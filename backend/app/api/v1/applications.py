@@ -1,66 +1,51 @@
 from __future__ import annotations
 
 import datetime
+import uuid
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
 from app.core.security import get_current_user, AuthenticatedUser
-from app.core.config import settings
 from app.schemas.application import ApplicationResponse, ApplicationBase, ApplicationSubmissionProof
 
 router = APIRouter(prefix="/applications", tags=["Applications"])
 
-# In-memory storage for development & testing
-_mock_applications: List[ApplicationResponse] = [
-    ApplicationResponse(
-        id="app-1",
-        profile_id="candidate-fresher",
-        job_id="a1111111-1111-1111-1111-111111111111",
-        job_title="Associate Frontend Developer",
-        company="Zoho Corporation",
-        location="Chennai, Tamil Nadu",
-        match_score=88,
-        status="pending_review",
-        submission_channel="authorized_integration",
-        created_at="2026-10-25T10:00:00Z"
-    ),
-    ApplicationResponse(
-        id="app-2",
-        profile_id="candidate-fresher",
-        job_id="b2222222-2222-2222-2222-222222222222",
-        job_title="Junior AI Product Developer",
-        company="Freshworks",
-        location="Chennai, Tamil Nadu",
-        match_score=82,
-        status="escalated",
-        escalation_reason="Portal requires mandatory video assessment and custom credential authentication.",
-        submission_channel="manual_escalation",
-        created_at="2026-10-25T11:00:00Z"
-    ),
-    ApplicationResponse(
-        id="app-3",
-        profile_id="candidate-fresher",
-        job_id="d4444444-4444-4444-4444-444444444444",
-        job_title="Graduate Software Engineer (Full-stack)",
-        company="Postman",
-        location="Remote, India",
-        match_score=91,
-        status="submitted",
-        submission_channel="authorized_integration",
-        submission_proof_ref="POSTMAN-APP-REC-8931284",
-        applied_at="2026-10-25T12:00:00Z",
-        created_at="2026-10-25T11:30:00Z"
-    )
-]
+# Live applications storage (starts empty; populated only by real candidate applications)
+_live_applications: List[ApplicationResponse] = []
 
 
 @router.get("", response_model=List[ApplicationResponse])
 async def list_applications(
     current_user: AuthenticatedUser = Depends(get_current_user)
 ) -> List[ApplicationResponse]:
-    """Returns candidate's application history and real-time statuses."""
-    # Filter for the current user (or demo records)
-    return _mock_applications
+    """Returns only real candidate applications tracked in the system."""
+    return [app for app in _live_applications if app.profile_id == current_user.id]
+
+
+@router.post("", response_model=ApplicationResponse, status_code=status.HTTP_201_CREATED)
+async def create_application(
+    app_data: ApplicationBase,
+    job_title: Optional[str] = None,
+    company: Optional[str] = None,
+    location: Optional[str] = None,
+    current_user: AuthenticatedUser = Depends(get_current_user)
+) -> ApplicationResponse:
+    """Registers a real candidate application into tracking."""
+    new_app = ApplicationResponse(
+        id=f"app-{uuid.uuid4().hex[:8]}",
+        profile_id=current_user.id,
+        job_id=app_data.job_id,
+        job_title=job_title or "Software Developer",
+        company=company or "Direct Employer",
+        location=location or "Chennai, India",
+        match_score=app_data.match_score,
+        status=app_data.status,
+        escalation_reason=app_data.escalation_reason,
+        submission_channel=app_data.submission_channel,
+        submission_proof_ref=app_data.submission_proof_ref,
+        created_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
+    )
+    _live_applications.append(new_app)
+    return new_app
 
 
 @router.patch("/{app_id}/submit", response_model=ApplicationResponse)
@@ -79,7 +64,7 @@ async def mark_application_submitted(
             detail="Cannot mark application as submitted without confirmed submission evidence"
         )
 
-    for app in _mock_applications:
+    for app in _live_applications:
         if app.id == app_id:
             app.status = "submitted"
             app.submission_proof_ref = proof.submission_proof_ref.strip()

@@ -62,9 +62,23 @@ def test_application_submission_guardrail_enforcement(client: TestClient, auth_h
     """
     Verifies that an application CANNOT be marked submitted without confirmed submission evidence.
     """
+    # Create a real candidate application
+    create_res = client.post(
+        "/api/v1/applications",
+        json={
+            "job_id": "job-live-101",
+            "match_score": 88,
+            "status": "pending_review",
+            "submission_channel": "authorized_integration"
+        },
+        headers=auth_headers
+    )
+    assert create_res.status_code == 201
+    app_id = create_res.json()["id"]
+
     empty_proof_payload = {"submission_proof_ref": "   "}
     response = client.patch(
-        "/api/v1/applications/app-1/submit",
+        f"/api/v1/applications/{app_id}/submit",
         json=empty_proof_payload,
         headers=auth_headers
     )
@@ -73,7 +87,7 @@ def test_application_submission_guardrail_enforcement(client: TestClient, auth_h
 
     valid_proof_payload = {"submission_proof_ref": "SUBMISSION-PROOF-CONFIRM-99210"}
     response = client.patch(
-        "/api/v1/applications/app-1/submit",
+        f"/api/v1/applications/{app_id}/submit",
         json=valid_proof_payload,
         headers=auth_headers
     )
