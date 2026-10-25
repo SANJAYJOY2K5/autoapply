@@ -70,7 +70,7 @@ export interface JobItem {
   created_at?: string;
 }
 
-export type ApplicationStatus = "pending_review" | "escalated" | "queued" | "submitted" | "rejected";
+export type ApplicationStatus = "pending_review" | "escalated" | "queued" | "submitted" | "rejected" | "link_opened";
 
 export interface ApplicationItem {
   id: string;

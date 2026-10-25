@@ -168,7 +168,15 @@ export default function ProfilePage() {
       try {
         const data = await apiClient.getProfile();
         if (data && data.full_name) {
-          setProfile(data);
+          setProfile({
+            ...DEFAULT_SANJAY_PROFILE,
+            ...data,
+            phone: data.phone || DEFAULT_SANJAY_PROFILE.phone,
+            email: data.email || DEFAULT_SANJAY_PROFILE.email,
+            education: (data.education && data.education.length > 0) ? data.education : DEFAULT_SANJAY_PROFILE.education,
+            skills: (data.skills && data.skills.length > 0) ? data.skills : DEFAULT_SANJAY_PROFILE.skills,
+            projects: (data.projects && data.projects.length > 0) ? data.projects : DEFAULT_SANJAY_PROFILE.projects,
+          });
         }
       } catch (err: any) {
         console.warn("Using personal operator profile cache:", err);

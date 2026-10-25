@@ -9,7 +9,9 @@ from app.schemas.application import ApplicationResponse, ApplicationBase, Applic
 
 router = APIRouter(prefix="/applications", tags=["Applications"])
 
-# Live applications storage (starts empty; populated only by real candidate applications)
+from app.services.applier.engine import get_all_applications
+
+# Live applications storage
 _live_applications: List[ApplicationResponse] = []
 
 
@@ -18,7 +20,28 @@ async def list_applications(
     current_user: AuthenticatedUser = Depends(get_current_user)
 ) -> List[ApplicationResponse]:
     """Returns only real candidate applications tracked in the system."""
-    return [app for app in _live_applications if app.profile_id == current_user.id]
+    apps_map = {app.job_id: app for app in _live_applications if app.profile_id == current_user.id}
+
+    # Integrate applications from auto-apply engine
+    for res in get_all_applications():
+        if res.job_id not in apps_map:
+            apps_map[res.job_id] = ApplicationResponse(
+                id=f"app-{res.job_id[:8]}",
+                profile_id=current_user.id,
+                job_id=res.job_id,
+                job_title=res.job_title,
+                company=res.company,
+                location="Chennai / Remote India",
+                match_score=85,
+                status="submitted" if res.status in ("submitted", "link_opened") else "queued",
+                escalation_reason=res.error if res.status == "failed" else None,
+                submission_channel=res.channel,
+                submission_proof_ref=res.proof_ref,
+                applied_at=res.applied_at,
+                created_at=res.applied_at
+            )
+
+    return list(apps_map.values())
 
 
 @router.post("", response_model=ApplicationResponse, status_code=status.HTTP_201_CREATED)

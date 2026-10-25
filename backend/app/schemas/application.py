@@ -15,7 +15,7 @@ class ApplicationBase(BaseModel):
     @field_validator("status")
     @classmethod
     def validate_status(cls, v: str) -> str:
-        valid_statuses = {"pending_review", "escalated", "queued", "submitted", "rejected"}
+        valid_statuses = {"pending_review", "escalated", "queued", "submitted", "rejected", "link_opened"}
         if v.lower() not in valid_statuses:
             raise ValueError(f"Status must be one of: {', '.join(valid_statuses)}")
         return v.lower()
