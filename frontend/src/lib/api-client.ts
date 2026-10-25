@@ -7,7 +7,18 @@ import {
   HealthStatus
 } from "./types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+function getApiBaseUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (typeof window !== "undefined") {
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (!isLocalhost && (!envUrl || envUrl.includes("localhost") || envUrl.includes("127.0.0.1"))) {
+      return "https://autoapply-backend-api.onrender.com";
+    }
+  }
+  return envUrl || "http://localhost:8000";
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 class APIClient {
   private async getAuthHeaders(): Promise<HeadersInit> {
