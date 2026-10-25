@@ -9,7 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnTo = searchParams.get("returnTo") || "/dashboard";
+  const rawReturnTo = searchParams.get("returnTo") || "/dashboard";
+  const returnTo = (rawReturnTo.startsWith("/") && !rawReturnTo.startsWith("//")) ? rawReturnTo : "/dashboard";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

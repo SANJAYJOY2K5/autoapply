@@ -30,6 +30,7 @@ export default function SignupPage() {
           data: {
             full_name: fullName,
           },
+          emailRedirectTo: typeof window !== "undefined" ? `${window.location.origin}/api/auth/callback` : undefined,
         },
       });
 
