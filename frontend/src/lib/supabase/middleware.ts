@@ -8,7 +8,7 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://itobnzvfwlmzgwnpvenv.supabase.co";
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key";
 
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
