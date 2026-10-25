@@ -24,7 +24,10 @@ async def run_discovery_scan(
       4. Returns qualified jobs sorted by relevance.
     """
     threshold = min_score_override if min_score_override is not None else profile.min_match_score
-    raw_openings = await fetch_all_active_openings()
+    raw_openings = await fetch_all_active_openings(
+        preferred_roles=profile.preferred_roles,
+        location=profile.current_location or "Chennai"
+    )
 
     matched_jobs: List[JobResponse] = []
 

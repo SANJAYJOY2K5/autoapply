@@ -90,15 +90,19 @@ def calculate_job_match(
 
     if candidate_skills:
         ratio = len(matched_skills) / max(len(candidate_skills), 1)
-        # Scaled skill points
         skill_score = min(int(ratio * 60), 40)
-        if len(matched_skills) >= 2:
+        if len(matched_skills) >= 1:
             skill_score = max(skill_score, 25)
+        elif matched_role_family:
+            # Specialization matches candidate role family
+            skill_score = max(skill_score, 20)
     else:
         skill_score = 20
 
     if matched_skills:
         match_reasons.append(f"Matching stack: {', '.join(matched_skills[:4])}")
+    elif matched_role_family:
+        match_reasons.append("Role alignment with candidate technical stack")
 
     total_score = min(title_score + loc_score + skill_score, 100)
     return total_score, match_reasons
