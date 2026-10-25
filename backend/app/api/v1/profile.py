@@ -20,16 +20,16 @@ router = APIRouter(prefix="/profile", tags=["Profile"])
 
 
 def _get_default_profile(user_id: str, email: str) -> CandidateProfileResponse:
-    """Builds a default fresher profile template."""
+    """Builds Sanjay's personal operator profile template."""
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     return CandidateProfileResponse(
         id=user_id,
-        full_name="Fresher Candidate",
-        email=email,
+        full_name="Sanjay",
+        email=email if (email and "@" in email and "demo" not in email) else "ssanjayaids2022@gmail.com",
         phone="+91 98765 43210",
-        headline="Entry-Level Full-Stack & AI Product Developer",
+        headline="AI & Data Science Graduate | Full-Stack & AI Product Developer",
         current_location="Chennai",
-        relocation_preference="Chennai + Remote India",
+        relocation_preference="Chennai (OMR, Guindy, Siruseri, Ambattur) & Remote India",
         preferred_work_modes=["remote", "hybrid", "onsite"],
         preferred_roles=[
             "Frontend Developer",
@@ -42,30 +42,33 @@ def _get_default_profile(user_id: str, email: str) -> CandidateProfileResponse:
         search_frequency="hourly",
         education=[
             EducationItem(
-                id="edu-default-1",
+                id="edu-sanjay-1",
                 institution="Anna University",
-                degree="B.E. Computer Science and Engineering",
-                field_of_study="Computer Science",
-                start_year=2020,
-                end_year=2024,
-                cgpa_or_percentage="8.4 CGPA"
+                degree="B.Tech Artificial Intelligence and Data Science (AI & DS)",
+                field_of_study="Artificial Intelligence & Data Science",
+                start_year=2022,
+                end_year=2026,
+                cgpa_or_percentage="8.5 CGPA"
             )
         ],
         skills=[
-            SkillItem(id="sk-1", skill_name="React", category="framework", proficiency="intermediate"),
-            SkillItem(id="sk-2", skill_name="TypeScript", category="language", proficiency="intermediate"),
-            SkillItem(id="sk-3", skill_name="Python", category="language", proficiency="intermediate"),
-            SkillItem(id="sk-4", skill_name="FastAPI", category="framework", proficiency="intermediate"),
-            SkillItem(id="sk-5", skill_name="PostgreSQL", category="technical", proficiency="intermediate"),
-            SkillItem(id="sk-6", skill_name="Tailwind CSS", category="tool", proficiency="intermediate")
+            SkillItem(id="sk-1", skill_name="React", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-2", skill_name="Next.js", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-3", skill_name="TypeScript", category="language", proficiency="intermediate"),
+            SkillItem(id="sk-4", skill_name="Python", category="language", proficiency="advanced"),
+            SkillItem(id="sk-5", skill_name="FastAPI", category="framework", proficiency="intermediate"),
+            SkillItem(id="sk-6", skill_name="Machine Learning & AI", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-7", skill_name="Data Analysis & Pandas", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-8", skill_name="PostgreSQL", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-9", skill_name="Tailwind CSS", category="tool", proficiency="advanced")
         ],
         projects=[
             ProjectItem(
                 id="proj-1",
-                title="AI Powered Portfolio & Job Tracker",
-                description="Built full-stack application using Next.js and FastAPI with Postgres storage and automated matching.",
-                technologies=["React", "TypeScript", "FastAPI", "Tailwind CSS"],
-                github_url="https://github.com/candidate/ai-job-tracker"
+                title="AutoApply AI - Personal Operator Command Center",
+                description="Built automated job discovery, real-time platform scrapers (LinkedIn, Shine, Remotive), and 75% score gate matching for Chennai and remote roles.",
+                technologies=["Next.js", "FastAPI", "Python", "TypeScript", "PostgreSQL"],
+                github_url="https://github.com/SANJAYJOY2K5/autoapply"
             )
         ],
         resumes=[],

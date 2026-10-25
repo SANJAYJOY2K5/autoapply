@@ -101,12 +101,12 @@ export default function ProfilePage() {
   const addEducation = () => {
     if (!profile) return;
     const newItem: EducationItem = {
-      institution: "",
-      degree: "B.Tech Computer Science",
-      field_of_study: "Computer Science",
-      start_year: 2020,
-      end_year: 2024,
-      cgpa_or_percentage: "8.0 CGPA"
+      institution: "Anna University",
+      degree: "B.Tech Artificial Intelligence and Data Science",
+      field_of_study: "AI & Data Science",
+      start_year: 2022,
+      end_year: 2026,
+      cgpa_or_percentage: "8.5 CGPA"
     };
     setProfile({ ...profile, education: [...profile.education, newItem] });
   };
@@ -138,8 +138,8 @@ export default function ProfilePage() {
     const newProject: ProjectItem = {
       title: "",
       description: "",
-      technologies: ["React", "FastAPI"],
-      github_url: ""
+      technologies: ["React", "FastAPI", "Python", "TypeScript"],
+      github_url: "https://github.com/SANJAYJOY2K5/"
     };
     setProfile({ ...profile, projects: [...profile.projects, newProject] });
   };

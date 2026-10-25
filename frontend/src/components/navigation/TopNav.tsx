@@ -58,19 +58,25 @@ export function TopNav({ onToggleMobile, title }: TopNavProps) {
           <span className="font-medium">Min Match: 75%</span>
         </div>
 
-        {/* User Pill & Logout */}
+        {/* Sanjay Personal Operator Pill */}
         <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-bold text-white shadow-sm">
-            KK
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-xs font-bold text-white shadow-sm ring-1 ring-indigo-500/30">
+              SJ
+            </div>
+            <div className="hidden md:flex flex-col text-left">
+              <span className="text-xs font-semibold text-white leading-tight">Sanjay</span>
+              <span className="text-[10px] text-emerald-400 font-medium leading-none">Personal Operator</span>
+            </div>
           </div>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition border border-transparent hover:border-rose-900/50"
-            title="Sign out of AutoApply AI"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition border border-transparent hover:border-rose-900/50 ml-1"
+            title="Reset session or sign out"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">{loggingOut ? "Signing out..." : "Sign Out"}</span>
+            <span className="hidden lg:inline">{loggingOut ? "..." : "Exit"}</span>
           </button>
         </div>
       </div>

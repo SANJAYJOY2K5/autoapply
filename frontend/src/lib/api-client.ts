@@ -21,10 +21,10 @@ class APIClient {
       if (session?.access_token) {
         headers["Authorization"] = `Bearer ${session.access_token}`;
       } else {
-        headers["Authorization"] = "Bearer demo-dev-token";
+        headers["Authorization"] = "Bearer sanjay-operator-token";
       }
     } catch {
-      headers["Authorization"] = "Bearer demo-dev-token";
+      headers["Authorization"] = "Bearer sanjay-operator-token";
     }
 
     return headers;

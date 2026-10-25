@@ -51,6 +51,21 @@ function LoginForm() {
 
   return (
     <div className="p-8 rounded-2xl bg-slate-900/70 border border-slate-800 shadow-xl backdrop-blur-md space-y-5">
+      {/* 1-Click Personal Operator Fast Track */}
+      <Link
+        href={returnTo}
+        className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 group"
+      >
+        <span>Enter Sanjay's Command Center</span>
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </Link>
+
+      <div className="relative flex py-1 items-center">
+        <div className="flex-grow border-t border-slate-800"></div>
+        <span className="flex-shrink mx-3 text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Or Sign In with Supabase</span>
+        <div className="flex-grow border-t border-slate-800"></div>
+      </div>
+
       {errorMsg && (
         <div className="p-3.5 rounded-xl bg-rose-950/50 border border-rose-800/80 text-rose-300 text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />

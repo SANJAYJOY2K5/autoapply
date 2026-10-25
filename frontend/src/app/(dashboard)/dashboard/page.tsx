@@ -60,10 +60,10 @@ export default function DashboardPage() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Phase 1 Active • Chennai Fresher Track</span>
+              <span>Sanjay's Personal Command Center • Chennai & Remote Tech</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-              Welcome, {profile?.full_name || "Fresher Candidate"}
+              Welcome, {profile?.full_name || "Sanjay"} 👋
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">
               AutoApply AI is actively tracking entry-level roles matching your 75%+ score gate in{" "}

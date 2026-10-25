@@ -53,27 +53,6 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // Verify user session
-  const { data: { user } } = await supabase.auth.getUser();
-
-  const isProtectedPath =
-    request.nextUrl.pathname.startsWith("/dashboard") ||
-    request.nextUrl.pathname.startsWith("/profile") ||
-    request.nextUrl.pathname.startsWith("/jobs") ||
-    request.nextUrl.pathname.startsWith("/applications") ||
-    request.nextUrl.pathname.startsWith("/settings");
-
-  // If visiting protected route with live Supabase credentials configured and no user, redirect to /login
-  // (In local dev placeholder mode without live Supabase keys, allow bypass for demo navigation)
-  const isLiveSupabaseConfigured =
-    supabaseUrl.includes(".supabase.co") && !supabaseUrl.includes("placeholder");
-
-  if (isProtectedPath && !user && isLiveSupabaseConfigured) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("returnTo", request.nextUrl.pathname);
-    return NextResponse.redirect(url);
-  }
-
+  // Personal Operator Mode: allow direct, instant access to personal dashboard
   return response;
 }
