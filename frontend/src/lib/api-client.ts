@@ -100,6 +100,31 @@ class APIClient {
     return res.json();
   }
 
+  async applyToJob(jobId: string): Promise<{
+    status: string;
+    job_id: string;
+    job_title: string;
+    company: string;
+    channel: string;
+    submission_status: string;
+    proof_ref: string;
+    applied_at: string;
+    candidate: string;
+    phone: string;
+    message: string;
+  }> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch(`${API_BASE_URL}/api/v1/apply/job/${jobId}`, {
+      method: "POST",
+      headers,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Single job apply failed");
+    }
+    return res.json();
+  }
+
   async getApplyLog(): Promise<any[]> {
     const headers = await this.getAuthHeaders();
     const res = await fetch(`${API_BASE_URL}/api/v1/apply/log`, { headers });

@@ -68,3 +68,8 @@ async def run_discovery_scan(
 def get_cached_discovered_jobs() -> List[JobResponse]:
     """Returns currently discovered jobs from cache."""
     return list(_active_discovered_jobs.values())
+
+
+def get_job_by_id(job_id: str) -> Optional[JobResponse]:
+    """Retrieves a single job by its unique ID."""
+    return _active_discovered_jobs.get(job_id)

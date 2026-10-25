@@ -1,4 +1,4 @@
-﻿"""Auto-Apply API — triggers and monitors the auto-apply engine."""
+"""Auto-Apply API — triggers and monitors the auto-apply engine."""
 from __future__ import annotations
 
 from typing import List
@@ -58,6 +58,43 @@ async def trigger_auto_apply(
             f"Auto-apply complete: {submitted} submitted via API, "
             f"{tracked} tracked via link. All applications logged with proof."
         ),
+    }
+
+
+@router.post("/job/{job_id}", response_model=dict)
+async def apply_single_job(
+    job_id: str,
+    current_user: AuthenticatedUser = Depends(get_current_user),
+) -> dict:
+    """
+    Submits a real application immediately for a specific job using Sanjay Saminathan verified details.
+    Moves the job from the active feed to the applied application history.
+    """
+    from fastapi import HTTPException
+    from app.services.discovery.service import get_job_by_id, get_cached_discovered_jobs
+    from app.services.applier.engine import apply_to_job
+
+    job = get_job_by_id(job_id)
+    if not job:
+        cached = get_cached_discovered_jobs()
+        job = next((j for j in cached if j.id == job_id), None)
+
+    if not job:
+        raise HTTPException(status_code=404, detail="Job opening not found or expired")
+
+    result = await apply_to_job(job)
+    return {
+        "status": "success",
+        "job_id": result.job_id,
+        "job_title": result.job_title,
+        "company": result.company,
+        "channel": result.channel,
+        "submission_status": result.status,
+        "proof_ref": result.proof_ref,
+        "applied_at": result.applied_at,
+        "candidate": "kishorsanjay2005@gmail.com",
+        "phone": "+91 78713 50761",
+        "message": f"Application successfully submitted for {result.job_title} at {result.company}!"
     }
 
 

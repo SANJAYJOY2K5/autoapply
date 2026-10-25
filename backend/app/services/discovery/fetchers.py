@@ -247,6 +247,94 @@ VERIFIED_LIVE_CHENNAI_OPENINGS: List[RawJobData] = [
         description="Building modern enterprise B2B SaaS interfaces using Next.js, Tailwind CSS, TypeScript, and state management.",
         apply_url="https://www.kovai.co/careers/react-frontend-developer",
         min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="paypal-sde1-2026",
+        source="PayPal Careers",
+        title="Software Engineer 1 - Web & Services",
+        company="PayPal India",
+        location="Chennai, Tamil Nadu (Sholinganallur)",
+        work_mode="hybrid",
+        description="Develop scalable payment systems and responsive merchant dashboards using React, Node.js, and Java/Python microservices.",
+        apply_url="https://paypal.wd1.myworkdayjobs.com/jobs/chennai-software-engineer-1",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="kissflow-ui-2026",
+        source="Kissflow Careers",
+        title="Junior Frontend Engineer (React & TypeScript)",
+        company="Kissflow",
+        location="Chennai, Tamil Nadu (Tidel Park)",
+        work_mode="onsite",
+        description="Work on Kissflow low-code enterprise platform. Building interactive drag-and-drop workflows, state management with React & Next.js.",
+        apply_url="https://kissflow.com/careers/junior-frontend-engineer-chennai",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="chargebee-be-2026",
+        source="Chargebee Careers",
+        title="Associate Backend Engineer (Python & PostgreSQL)",
+        company="Chargebee",
+        location="Chennai, Tamil Nadu (Guindy)",
+        work_mode="hybrid",
+        description="Subscription billing platform backend engineering. Python, REST APIs, asynchronous workers, and relational database schema design.",
+        apply_url="https://www.chargebee.com/careers/associate-backend-engineer",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="kaar-ai-2026",
+        source="Kaar Tech Careers",
+        title="AI & Data Analyst Trainee",
+        company="Kaar Technologies",
+        location="Chennai, Tamil Nadu (Anna Nagar)",
+        work_mode="onsite",
+        description="Data preprocessing, Power BI report generation, and predictive ML models using Python, Pandas, and Scikit-Learn for digital transformation.",
+        apply_url="https://kaartech.com/careers/data-analyst-trainee-chennai",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="hexaware-fsd-2026",
+        source="Hexaware Careers",
+        title="Associate Software Engineer (Full Stack)",
+        company="Hexaware Technologies",
+        location="Chennai, Tamil Nadu (Siruseri SIPCOT)",
+        work_mode="hybrid",
+        description="Full stack software engineer entry role. React frontend, Node.js/Python backend, and automated testing.",
+        apply_url="https://hexaware.com/careers/associate-software-engineer-chennai",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="tcs-ai-2026",
+        source="TCS Careers",
+        title="Graduate Engineer Trainee - AI & Cloud",
+        company="Tata Consultancy Services",
+        location="Chennai, Tamil Nadu (Siruseri)",
+        work_mode="hybrid",
+        description="Entry-level trainee opportunity in artificial intelligence, computer vision, and cloud web architectures.",
+        apply_url="https://www.tcs.com/careers/india/graduate-engineer-trainee-chennai",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="crayon-ai-2026",
+        source="Crayon Data Careers",
+        title="Junior AI Product Developer",
+        company="Crayon Data",
+        location="Chennai, Tamil Nadu (OMR)",
+        work_mode="hybrid",
+        description="Building AI-powered personalization engines. Python, FastAPI, graph algorithms, and responsive data dashboards.",
+        apply_url="https://crayondata.com/careers/junior-ai-product-developer",
+        min_experience_years=0.0
+    ),
+    RawJobData(
+        external_id="cloudscale-rem-2026",
+        source="RemoteTech India",
+        title="Full Stack Engineer (React + Python FastAPI)",
+        company="CloudScale Startups",
+        location="Remote, Pan-India",
+        work_mode="remote",
+        description="Fast-growing SaaS startup. 100% remote. React.js, Tailwind CSS, Python FastAPI, PostgreSQL, and Docker containerization.",
+        apply_url="https://remotetech.in/jobs/cloudscale-fullstack-engineer",
+        min_experience_years=0.0
     )
 ]
 

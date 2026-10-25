@@ -10,6 +10,8 @@ from app.services.discovery.service import run_discovery_scan, get_cached_discov
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
 
 
+from app.services.applier.engine import get_applied_job_ids
+
 @router.get("", response_model=List[JobResponse])
 async def list_jobs(
     min_score: int = Query(75, ge=0, le=100),
@@ -17,16 +19,29 @@ async def list_jobs(
     current_user: AuthenticatedUser = Depends(get_current_user)
 ) -> List[JobResponse]:
     """
-    Returns 100% original, live discovered jobs from online feeds.
-    Zero sample or mock data. If no cached scan exists, runs a live scan.
+    Returns only unapplied, live discovered jobs.
+    When a job is applied, it immediately leaves this feed and moves to the Applied History tracker.
+    New jobs continue to populate hourly.
     """
+    applied_ids = get_applied_job_ids()
     cached = get_cached_discovered_jobs()
-    if not cached:
+
+    # Filter for jobs that have NOT been applied to yet
+    unapplied = [
+        job for job in cached
+        if job.id not in applied_ids and (job.match_score or 100) >= min_score
+    ]
+
+    # If no unapplied cached jobs remain, trigger fresh scan
+    if not unapplied:
         profile = await get_my_profile(current_user=current_user)
         cached = await run_discovery_scan(profile=profile, min_score_override=min_score)
+        unapplied = [
+            job for job in cached
+            if job.id not in applied_ids and (job.match_score or 100) >= min_score
+        ]
 
-    filtered = [job for job in cached if (job.match_score or 100) >= min_score]
-    return filtered
+    return unapplied
 
 
 @router.post("/scan", response_model=List[JobResponse])
