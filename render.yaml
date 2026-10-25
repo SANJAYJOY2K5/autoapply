@@ -34,7 +34,9 @@ services:
           name: autoapply-redis
           property: connectionString
       - key: FEATURE_AUTO_APPLY_ENABLED
-        value: "false"
+        value: "true"
+      - key: FEATURE_JOB_SCRAPING_ENABLED
+        value: "true"
 
   # 2. 24/7 Background Worker (Always-On Scheduler for Discovery & Applications)
   - type: worker

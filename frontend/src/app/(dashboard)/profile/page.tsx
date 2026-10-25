@@ -41,51 +41,111 @@ const WORK_MODE_OPTIONS = ["remote", "hybrid", "onsite"];
 
 const DEFAULT_SANJAY_PROFILE: CandidateProfile = {
   id: "sanjay-operator",
-  full_name: "Sanjay",
-  email: "ssanjayaids2022@gmail.com",
-  phone: "+91 98765 43210",
-  headline: "AI & Data Science Graduate | Full-Stack & AI Product Developer",
+  full_name: "SANJAY SAMINATHAN",
+  email: "kishorsanjay2005@gmail.com",
+  phone: "+91 78713 50761",
+  headline: "Full Stack Developer & AI/Data Science Engineer",
   current_location: "Chennai",
-  relocation_preference: "Chennai (OMR, Guindy, Siruseri, Ambattur) & Remote India",
+  relocation_preference: "Chennai, Tamilnadu & Remote India",
   preferred_work_modes: ["remote", "hybrid", "onsite"],
   preferred_roles: [
+    "Full-stack Developer",
     "Frontend Developer",
     "AI / AI Product Developer",
     "Data Analyst",
     "Data Scientist",
-    "Full-stack Developer"
+    "Backend Developer"
   ],
   min_match_score: 75,
   search_frequency: "hourly",
   education: [
     {
       id: "edu-sanjay-1",
-      institution: "Anna University",
-      degree: "B.Tech Artificial Intelligence and Data Science (AI & DS)",
+      institution: "Sri Ramakrishna College of Engineering",
+      degree: "B.Tech – AI & Data Science",
       field_of_study: "Artificial Intelligence & Data Science",
       start_year: 2022,
       end_year: 2026,
-      cgpa_or_percentage: "8.5 CGPA"
+      cgpa_or_percentage: "7.71/10 CGPA"
+    },
+    {
+      id: "edu-sanjay-2",
+      institution: "Meenakshi Ramasamy Mat. HSS",
+      degree: "HSC (Class XII)",
+      field_of_study: "Computer Science & Mathematics",
+      start_year: 2021,
+      end_year: 2022,
+      cgpa_or_percentage: "71.17%"
+    },
+    {
+      id: "edu-sanjay-3",
+      institution: "Annai Theresa Matriculation School",
+      degree: "SSLC (Class X)",
+      field_of_study: "General Secondary Education",
+      start_year: 2019,
+      end_year: 2020,
+      cgpa_or_percentage: "80.4%"
     }
   ],
   skills: [
-    { id: "sk-1", skill_name: "React", category: "framework", proficiency: "advanced" },
-    { id: "sk-2", skill_name: "Next.js", category: "framework", proficiency: "advanced" },
-    { id: "sk-3", skill_name: "TypeScript", category: "language", proficiency: "intermediate" },
-    { id: "sk-4", skill_name: "Python", category: "language", proficiency: "advanced" },
-    { id: "sk-5", skill_name: "FastAPI", category: "framework", proficiency: "intermediate" },
-    { id: "sk-6", skill_name: "Machine Learning & AI", category: "technical", proficiency: "intermediate" },
-    { id: "sk-7", skill_name: "Data Analysis & Pandas", category: "technical", proficiency: "intermediate" },
-    { id: "sk-8", skill_name: "PostgreSQL", category: "technical", proficiency: "intermediate" },
-    { id: "sk-9", skill_name: "Tailwind CSS", category: "tool", proficiency: "advanced" }
+    { id: "sk-1",  skill_name: "React.js",               category: "framework",  proficiency: "advanced"      },
+    { id: "sk-2",  skill_name: "Next.js",                category: "framework",  proficiency: "advanced"      },
+    { id: "sk-3",  skill_name: "Python",                 category: "language",   proficiency: "advanced"      },
+    { id: "sk-4",  skill_name: "FastAPI",                category: "framework",  proficiency: "advanced"      },
+    { id: "sk-5",  skill_name: "Node.js",                category: "technical",  proficiency: "intermediate"  },
+    { id: "sk-6",  skill_name: "Express.js",             category: "framework",  proficiency: "intermediate"  },
+    { id: "sk-7",  skill_name: "JavaScript",             category: "language",   proficiency: "advanced"      },
+    { id: "sk-8",  skill_name: "Tailwind CSS",           category: "tool",       proficiency: "advanced"      },
+    { id: "sk-9",  skill_name: "HTML5 & CSS3",           category: "technical",  proficiency: "advanced"      },
+    { id: "sk-10", skill_name: "REST APIs",              category: "technical",  proficiency: "advanced"      },
+    { id: "sk-11", skill_name: "PostgreSQL",             category: "technical",  proficiency: "intermediate"  },
+    { id: "sk-12", skill_name: "MongoDB",                category: "technical",  proficiency: "intermediate"  },
+    { id: "sk-13", skill_name: "MySQL",                  category: "technical",  proficiency: "intermediate"  },
+    { id: "sk-14", skill_name: "Firebase",               category: "technical",  proficiency: "intermediate"  },
+    { id: "sk-15", skill_name: "Power BI",               category: "tool",       proficiency: "advanced"      },
+    { id: "sk-16", skill_name: "Pandas",                 category: "framework",  proficiency: "advanced"      },
+    { id: "sk-17", skill_name: "NumPy",                  category: "framework",  proficiency: "advanced"      },
+    { id: "sk-18", skill_name: "TensorFlow",             category: "framework",  proficiency: "intermediate"  },
+    { id: "sk-19", skill_name: "OpenCV",                 category: "framework",  proficiency: "intermediate"  },
+    { id: "sk-20", skill_name: "Git & GitHub",           category: "tool",       proficiency: "advanced"      },
+    { id: "sk-21", skill_name: "Docker",                 category: "tool",       proficiency: "intermediate"  },
+    { id: "sk-22", skill_name: "Vercel & Render",        category: "tool",       proficiency: "advanced"      }
   ],
   projects: [
     {
       id: "proj-1",
-      title: "AutoApply AI - Personal Operator Command Center",
-      description: "Automated job discovery and 75% match gate for Chennai and Remote opportunities.",
-      technologies: ["Next.js", "FastAPI", "Python", "TypeScript", "PostgreSQL"],
-      github_url: "https://github.com/SANJAYJOY2K5/autoapply"
+      title: "Community Detection – E-Commerce Purchasing Tendency (2024)",
+      description: "Applied Louvain & Girvan-Newman graph algorithms to uncover buyer clusters from large-scale e-commerce transaction networks. Built React + D3.js interactive visualization dashboard.",
+      technologies: ["Python", "NetworkX", "Pandas", "React", "D3.js", "Graph Algorithms"],
+      github_url: "https://github.com/SANJAYJOY2K5"
+    },
+    {
+      id: "proj-2",
+      title: "Full Stack E-Commerce Platform (2024)",
+      description: "Complete MERN stack app with product CRUD, cart, checkout. JWT auth, RBAC, Stripe payment. Deployed on Vercel + Render with CI/CD via GitHub Actions.",
+      technologies: ["MongoDB", "Express.js", "React", "Node.js", "JWT", "Stripe"],
+      github_url: "https://github.com/SANJAYJOY2K5"
+    },
+    {
+      id: "proj-3",
+      title: "Animal Type Classifier (2024)",
+      description: "ML image classification using TensorFlow + OpenCV. Integrated into Flask web app with drag-and-drop image upload.",
+      technologies: ["TensorFlow", "OpenCV", "Python", "Flask", "Machine Learning"],
+      github_url: "https://github.com/SANJAYJOY2K5"
+    },
+    {
+      id: "proj-4",
+      title: "Virtual Hand Gesture Mouse (2022)",
+      description: "Controlled computer cursor via real-time hand gestures using MediaPipe + OpenCV for improved accessibility.",
+      technologies: ["Python", "MediaPipe", "OpenCV", "Computer Vision"],
+      github_url: "https://github.com/SANJAYJOY2K5"
+    },
+    {
+      id: "proj-5",
+      title: "Sleep Tracker Android App (2024)",
+      description: "Android app tracking sleep duration with automatic start/stop detection. Visualized trends with MPAndroidChart.",
+      technologies: ["Android", "Kotlin", "Java", "MPAndroidChart"],
+      github_url: "https://github.com/SANJAYJOY2K5"
     }
   ],
   resumes: [],

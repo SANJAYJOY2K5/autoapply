@@ -6,6 +6,7 @@ from app.api.v1.profile import router as profile_router
 from app.api.v1.storage import router as storage_router
 from app.api.v1.jobs import router as jobs_router
 from app.api.v1.applications import router as applications_router
+from app.api.v1.apply import router as apply_router
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -14,3 +15,4 @@ api_router.include_router(profile_router)
 api_router.include_router(storage_router)
 api_router.include_router(jobs_router)
 api_router.include_router(applications_router)
+api_router.include_router(apply_router)

@@ -79,6 +79,47 @@ class APIClient {
     return res.json();
   }
 
+  async triggerAutoApply(): Promise<{
+    status: string;
+    scanned: number;
+    applied: number;
+    submitted: number;
+    tracked: number;
+    message: string;
+    candidate: string;
+    phone: string;
+  }> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch(`${API_BASE_URL}/api/v1/apply/auto`, {
+      method: "POST",
+      headers,
+    });
+    if (!res.ok) {
+      throw new Error("Auto-apply trigger failed");
+    }
+    return res.json();
+  }
+
+  async getApplyLog(): Promise<any[]> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch(`${API_BASE_URL}/api/v1/apply/log`, { headers });
+    if (!res.ok) throw new Error("Failed to fetch apply log");
+    return res.json();
+  }
+
+  async getApplyStats(): Promise<{
+    total_applied: number;
+    submitted: number;
+    link_tracked: number;
+    candidate: string;
+    phone: string;
+  }> {
+    const headers = await this.getAuthHeaders();
+    const res = await fetch(`${API_BASE_URL}/api/v1/apply/stats`, { headers });
+    if (!res.ok) throw new Error("Failed to fetch apply stats");
+    return res.json();
+  }
+
   async triggerJobScan(): Promise<JobItem[]> {
     const headers = await this.getAuthHeaders();
     const res = await fetch(`${API_BASE_URL}/api/v1/jobs/scan`, {

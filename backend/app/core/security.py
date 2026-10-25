@@ -28,9 +28,9 @@ def verify_supabase_jwt(token: str) -> AuthenticatedUser:
     if token in ("demo-dev-token", "sanjay-operator-token", "personal-token"):
         return AuthenticatedUser(
             id="sanjay-operator",
-            email="ssanjayaids2022@gmail.com",
+            email="kishorsanjay2005@gmail.com",
             role="authenticated",
-            raw_claims={"sub": "sanjay-operator", "email": "ssanjayaids2022@gmail.com", "name": "Sanjay"}
+            raw_claims={"sub": "sanjay-operator", "email": "kishorsanjay2005@gmail.com", "name": "SANJAY SAMINATHAN"}
         )
 
     try:

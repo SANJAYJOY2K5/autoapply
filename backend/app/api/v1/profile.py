@@ -20,55 +20,132 @@ router = APIRouter(prefix="/profile", tags=["Profile"])
 
 
 def _get_default_profile(user_id: str, email: str) -> CandidateProfileResponse:
-    """Builds Sanjay's personal operator profile template."""
+    """Builds Sanjay Saminathan's personal operator profile template from verified resume."""
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     return CandidateProfileResponse(
         id=user_id,
-        full_name="Sanjay",
-        email=email if (email and "@" in email and "demo" not in email) else "ssanjayaids2022@gmail.com",
-        phone="+91 98765 43210",
-        headline="AI & Data Science Graduate | Full-Stack & AI Product Developer",
+        full_name="SANJAY SAMINATHAN",
+        email=email if (email and "@" in email and "demo" not in email) else "kishorsanjay2005@gmail.com",
+        phone="+91 78713 50761",
+        headline="Full Stack Developer & AI/Data Science Engineer",
         current_location="Chennai",
-        relocation_preference="Chennai (OMR, Guindy, Siruseri, Ambattur) & Remote India",
+        relocation_preference="Chennai, Tamilnadu & Remote India",
         preferred_work_modes=["remote", "hybrid", "onsite"],
         preferred_roles=[
+            "Full-stack Developer",
             "Frontend Developer",
             "AI / AI Product Developer",
             "Data Analyst",
             "Data Scientist",
-            "Full-stack Developer"
+            "Backend Developer"
         ],
         min_match_score=75,
         search_frequency="hourly",
         education=[
             EducationItem(
                 id="edu-sanjay-1",
-                institution="Anna University",
-                degree="B.Tech Artificial Intelligence and Data Science (AI & DS)",
+                institution="Sri Ramakrishna College of Engineering",
+                degree="B.Tech – AI & Data Science",
                 field_of_study="Artificial Intelligence & Data Science",
                 start_year=2022,
                 end_year=2026,
-                cgpa_or_percentage="8.5 CGPA"
+                cgpa_or_percentage="7.71/10 CGPA"
+            ),
+            EducationItem(
+                id="edu-sanjay-2",
+                institution="Meenakshi Ramasamy Mat. HSS",
+                degree="HSC (Class XII)",
+                field_of_study="Computer Science & Mathematics",
+                start_year=2021,
+                end_year=2022,
+                cgpa_or_percentage="71.17%"
+            ),
+            EducationItem(
+                id="edu-sanjay-3",
+                institution="Annai Theresa Matriculation School",
+                degree="SSLC (Class X)",
+                field_of_study="General Secondary Education",
+                start_year=2019,
+                end_year=2020,
+                cgpa_or_percentage="80.4%"
             )
         ],
         skills=[
-            SkillItem(id="sk-1", skill_name="React", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-1", skill_name="React.js", category="framework", proficiency="advanced"),
             SkillItem(id="sk-2", skill_name="Next.js", category="framework", proficiency="advanced"),
-            SkillItem(id="sk-3", skill_name="TypeScript", category="language", proficiency="intermediate"),
-            SkillItem(id="sk-4", skill_name="Python", category="language", proficiency="advanced"),
-            SkillItem(id="sk-5", skill_name="FastAPI", category="framework", proficiency="intermediate"),
-            SkillItem(id="sk-6", skill_name="Machine Learning & AI", category="technical", proficiency="intermediate"),
-            SkillItem(id="sk-7", skill_name="Data Analysis & Pandas", category="technical", proficiency="intermediate"),
-            SkillItem(id="sk-8", skill_name="PostgreSQL", category="technical", proficiency="intermediate"),
-            SkillItem(id="sk-9", skill_name="Tailwind CSS", category="tool", proficiency="advanced")
+            SkillItem(id="sk-3", skill_name="Python", category="language", proficiency="advanced"),
+            SkillItem(id="sk-4", skill_name="FastAPI", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-5", skill_name="Node.js", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-6", skill_name="Express.js", category="framework", proficiency="intermediate"),
+            SkillItem(id="sk-7", skill_name="JavaScript", category="language", proficiency="advanced"),
+            SkillItem(id="sk-8", skill_name="Tailwind CSS", category="tool", proficiency="advanced"),
+            SkillItem(id="sk-9", skill_name="HTML5 & CSS3", category="technical", proficiency="advanced"),
+            SkillItem(id="sk-10", skill_name="REST APIs", category="technical", proficiency="advanced"),
+            SkillItem(id="sk-11", skill_name="PostgreSQL", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-12", skill_name="MongoDB", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-13", skill_name="MySQL", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-14", skill_name="Firebase", category="technical", proficiency="intermediate"),
+            SkillItem(id="sk-15", skill_name="Power BI", category="tool", proficiency="advanced"),
+            SkillItem(id="sk-16", skill_name="Pandas", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-17", skill_name="NumPy", category="framework", proficiency="advanced"),
+            SkillItem(id="sk-18", skill_name="TensorFlow", category="framework", proficiency="intermediate"),
+            SkillItem(id="sk-19", skill_name="OpenCV", category="framework", proficiency="intermediate"),
+            SkillItem(id="sk-20", skill_name="Git & GitHub", category="tool", proficiency="advanced"),
+            SkillItem(id="sk-21", skill_name="Docker", category="tool", proficiency="intermediate"),
+            SkillItem(id="sk-22", skill_name="Vercel & Render", category="tool", proficiency="advanced"),
+            SkillItem(id="sk-23", skill_name="VS Code & Cursor AI", category="tool", proficiency="expert"),
+            SkillItem(id="sk-24", skill_name="Problem-solving", category="soft", proficiency="advanced"),
+            SkillItem(id="sk-25", skill_name="Teamwork & Communication", category="soft", proficiency="advanced")
         ],
         projects=[
             ProjectItem(
                 id="proj-1",
-                title="AutoApply AI - Personal Operator Command Center",
-                description="Built automated job discovery, real-time platform scrapers (LinkedIn, Shine, Remotive), and 75% score gate matching for Chennai and remote roles.",
-                technologies=["Next.js", "FastAPI", "Python", "TypeScript", "PostgreSQL"],
-                github_url="https://github.com/SANJAYJOY2K5/autoapply"
+                title="Community Detection of Purchasing Tendency in Large-Scale E-Commerce (2026)",
+                description="Applied graph-based community detection algorithms (Louvain, Girvan-Newman) to uncover buyer clusters from large-scale e-commerce transaction networks. Engineered user-product interaction graphs using Python (NetworkX, Pandas) from millions of purchase records. Built a React + D3.js dashboard to visualize community structures and buying patterns with interactive filters and graph exploration.",
+                technologies=["Python", "NetworkX", "Pandas", "React", "D3.js", "Graph Algorithms"],
+                github_url="https://github.com/SANJAYJOY2K5"
+            ),
+            ProjectItem(
+                id="proj-2",
+                title="Community Detection Dashboard (2024)",
+                description="Graph-based community detection system with interactive D3.js visualization frontend. REST API backend (FastAPI/Python) serving Louvain and Girvan-Newman algorithm results. Exported reports as PDF with dynamic charts using ReportLab and Matplotlib.",
+                technologies=["FastAPI", "Python", "React", "D3.js", "ReportLab", "Matplotlib"],
+                github_url="https://github.com/SANJAYJOY2K5"
+            ),
+            ProjectItem(
+                id="proj-3",
+                title="Animal Type Classifier (2024)",
+                description="ML image classification model using TensorFlow and OpenCV in Python to identify animal species. Integrated model into a Flask web app with drag-and-drop image upload and prediction display.",
+                technologies=["TensorFlow", "OpenCV", "Python", "Flask", "Machine Learning"],
+                github_url="https://github.com/SANJAYJOY2K5"
+            ),
+            ProjectItem(
+                id="proj-4",
+                title="Virtual Hand Gesture Mouse (2022)",
+                description="Controlled the computer cursor via real-time hand gestures using MediaPipe + OpenCV computer vision. Designed for improved device accessibility for users with limited mobility.",
+                technologies=["Python", "MediaPipe", "OpenCV", "Computer Vision"],
+                github_url="https://github.com/SANJAYJOY2K5"
+            ),
+            ProjectItem(
+                id="proj-5",
+                title="Sleep Tracker Android App (2024)",
+                description="Android app tracking and analyzing sleep duration with automatic start/stop detection. Built with Java/Kotlin; visualized sleep trends using MPAndroidChart library.",
+                technologies=["Android", "Kotlin", "Java", "MPAndroidChart"],
+                github_url="https://github.com/SANJAYJOY2K5"
+            ),
+            ProjectItem(
+                id="proj-6",
+                title="Software Developer – Greator Software (Perambalur)",
+                description="Developing and maintaining full stack web applications as part of the core software team. Collaborating with cross-functional teams to design, build, and ship product features on schedule following agile practices.",
+                technologies=["Full Stack", "React", "Node.js", "Agile", "Web Applications"],
+                live_url="https://linkedin.com/in/sanjay-saminathan-6908202a3"
+            ),
+            ProjectItem(
+                id="proj-7",
+                title="Full Stack Developer Intern – ZANE",
+                description="Built and deployed full stack web features using React (frontend) and Node.js/Express (backend). Performed data cleaning, preprocessing, and analysis using Python (Pandas, NumPy). Designed interactive Power BI dashboards for real-time business KPI monitoring. Integrated REST APIs to connect frontend with backend.",
+                technologies=["Python", "Power BI", "React", "Node.js", "Express.js", "REST APIs", "Pandas", "NumPy"],
+                live_url="https://linkedin.com/in/sanjay-saminathan-6908202a3"
             )
         ],
         resumes=[],

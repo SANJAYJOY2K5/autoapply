@@ -13,12 +13,14 @@ try:
         timezone="Asia/Kolkata",
         enable_utc=True,
         beat_schedule={
-            "hourly-job-discovery-scan": {
-                "task": "app.workers.tasks.discover_jobs_hourly",
-                "schedule": 3600.0,  # Run every hour
+            # Run discovery + auto-apply every hour, 24/7 on Render
+            "hourly-discovery-and-apply": {
+                "task": "app.workers.tasks.discover_and_apply_hourly",
+                "schedule": 3600.0,  # Every 60 minutes
             },
         }
     )
+    logger.info("Celery app initialized — hourly auto-apply scheduled (Asia/Kolkata timezone)")
 except ImportError:
     celery_app = None
-    logger.info("Celery library not imported in lightweight environment; ready for Phase 2.")
+    logger.info("Celery not available — auto-apply engine running in direct-call mode.")
