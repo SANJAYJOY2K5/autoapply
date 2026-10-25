@@ -354,10 +354,10 @@ export default function ProfilePage() {
       <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
         {[
           { key: "preferences", label: "Job Preferences & Rules", icon: Sliders },
-          { key: "education", label: `Education (${profile.education.length})`, icon: GraduationCap },
-          { key: "skills", label: `Skills (${profile.skills.length})`, icon: Wrench },
-          { key: "projects", label: `Projects (${profile.projects.length})`, icon: FolderGit2 },
-          { key: "resume", label: `Resume (${profile.resumes.length})`, icon: FileText },
+          { key: "education", label: `Education (${profile?.education?.length ?? 0})`, icon: GraduationCap },
+          { key: "skills", label: `Skills (${profile?.skills?.length ?? 0})`, icon: Wrench },
+          { key: "projects", label: `Projects (${profile?.projects?.length ?? 0})`, icon: FolderGit2 },
+          { key: "resume", label: `Resume (${profile?.resumes?.length ?? 0})`, icon: FileText },
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.key;
@@ -434,7 +434,7 @@ export default function ProfilePage() {
             <label className="block text-xs font-semibold text-slate-300">Target Roles</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {ROLE_OPTIONS.map((role) => {
-                const checked = profile.preferred_roles.includes(role);
+                const checked = (profile?.preferred_roles || []).includes(role);
                 return (
                   <button
                     key={role}
@@ -516,7 +516,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-4">
-            {profile.education.map((item, idx) => (
+            {(profile?.education || []).map((item, idx) => (
               <div key={idx} className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-indigo-400">Entry #{idx + 1}</span>
@@ -624,7 +624,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {profile.skills.map((skill, idx) => (
+            {(profile?.skills || []).map((skill, idx) => (
               <div key={idx} className="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center gap-3">
                 <input
                   type="text"
@@ -697,7 +697,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-4">
-            {profile.projects.map((proj, idx) => (
+            {(profile?.projects || []).map((proj, idx) => (
               <div key={idx} className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-indigo-400">Project #{idx + 1}</span>
@@ -796,12 +796,12 @@ export default function ProfilePage() {
           {/* Uploaded Resumes List */}
           <div className="space-y-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Stored Resumes ({profile.resumes.length})
+              Stored Resumes ({profile?.resumes?.length ?? 0})
             </h3>
-            {profile.resumes.length === 0 ? (
+            {(!profile?.resumes || profile.resumes.length === 0) ? (
               <p className="text-xs text-slate-500 italic">No resumes uploaded yet.</p>
             ) : (
-              profile.resumes.map((res, i) => (
+              (profile?.resumes || []).map((res, i) => (
                 <div
                   key={i}
                   className="p-4 rounded-xl bg-slate-800/60 border border-slate-700 flex items-center justify-between"
