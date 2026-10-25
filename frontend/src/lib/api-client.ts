@@ -7,18 +7,28 @@ import {
   HealthStatus
 } from "./types";
 
-function getApiBaseUrl(): string {
+export function getApiBaseUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (typeof window !== "undefined") {
-    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    if (!isLocalhost && (!envUrl || envUrl.includes("localhost") || envUrl.includes("127.0.0.1"))) {
-      return "https://autoapply-backend-api.onrender.com";
+    const isLocalhost =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+    if (isLocalhost) {
+      return envUrl || "http://localhost:8000";
     }
+    // On deployed domains (e.g. *.vercel.app), prioritize explicit non-local envUrl or fallback to live Render backend
+    if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1")) {
+      return envUrl.replace(/\/+$/, "");
+    }
+    return "https://autoapply-ujjh.onrender.com";
   }
-  return envUrl || "http://localhost:8000";
+  // Server-side / SSR default
+  if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1")) {
+    return envUrl.replace(/\/+$/, "");
+  }
+  return "https://autoapply-ujjh.onrender.com";
 }
 
-const API_BASE_URL = getApiBaseUrl();
 
 class APIClient {
   private async getAuthHeaders(): Promise<HeadersInit> {
@@ -42,7 +52,7 @@ class APIClient {
   }
 
   async getHealth(): Promise<HealthStatus> {
-    const res = await fetch(`${API_BASE_URL}/api/v1/health`);
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/health`);
     if (!res.ok) {
       throw new Error(`Health check failed with status: ${res.status}`);
     }
@@ -51,7 +61,7 @@ class APIClient {
 
   async getProfile(): Promise<CandidateProfile> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/profile/me`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/profile/me`, {
       method: "GET",
       headers,
     });
@@ -63,7 +73,7 @@ class APIClient {
 
   async updateProfile(profileData: Partial<CandidateProfile>): Promise<CandidateProfile> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/profile`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/profile`, {
       method: "PUT",
       headers,
       body: JSON.stringify(profileData),
@@ -80,7 +90,7 @@ class APIClient {
     const params = new URLSearchParams({ min_score: minScore.toString() });
     if (location) params.append("location", location);
 
-    const res = await fetch(`${API_BASE_URL}/api/v1/jobs?${params.toString()}`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/jobs?${params.toString()}`, {
       method: "GET",
       headers,
     });
@@ -101,7 +111,7 @@ class APIClient {
     phone: string;
   }> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/apply/auto`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/apply/auto`, {
       method: "POST",
       headers,
     });
@@ -125,7 +135,7 @@ class APIClient {
     message: string;
   }> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/apply/job/${jobId}`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/apply/job/${jobId}`, {
       method: "POST",
       headers,
     });
@@ -138,7 +148,7 @@ class APIClient {
 
   async getApplyLog(): Promise<any[]> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/apply/log`, { headers });
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/apply/log`, { headers });
     if (!res.ok) throw new Error("Failed to fetch apply log");
     return res.json();
   }
@@ -151,14 +161,14 @@ class APIClient {
     phone: string;
   }> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/apply/stats`, { headers });
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/apply/stats`, { headers });
     if (!res.ok) throw new Error("Failed to fetch apply stats");
     return res.json();
   }
 
   async triggerJobScan(): Promise<JobItem[]> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/jobs/scan`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/jobs/scan`, {
       method: "POST",
       headers,
     });
@@ -171,7 +181,7 @@ class APIClient {
 
   async getApplications(): Promise<ApplicationItem[]> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/applications`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/applications`, {
       method: "GET",
       headers,
     });
@@ -183,7 +193,7 @@ class APIClient {
 
   async getResumeUploadUrl(fileName: string, fileSize: number): Promise<{ storage_path: string; bucket: string; upload_url?: string }> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/storage/resume-upload-url`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/storage/resume-upload-url`, {
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -201,7 +211,7 @@ class APIClient {
 
   async confirmResumeUpload(metadata: ResumeMetadata): Promise<ResumeMetadata> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/storage/resume-confirm`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/storage/resume-confirm`, {
       method: "POST",
       headers,
       body: JSON.stringify(metadata),
@@ -214,7 +224,7 @@ class APIClient {
 
   async getResumeDownloadUrl(path: string): Promise<string> {
     const headers = await this.getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/api/v1/storage/resume-download-url?path=${encodeURIComponent(path)}`, {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/storage/resume-download-url?path=${encodeURIComponent(path)}`, {
       headers,
     });
     if (!res.ok) {
