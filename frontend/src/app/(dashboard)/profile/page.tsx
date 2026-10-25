@@ -39,10 +39,64 @@ const ROLE_OPTIONS = [
 
 const WORK_MODE_OPTIONS = ["remote", "hybrid", "onsite"];
 
+const DEFAULT_SANJAY_PROFILE: CandidateProfile = {
+  id: "sanjay-operator",
+  full_name: "Sanjay",
+  email: "ssanjayaids2022@gmail.com",
+  phone: "+91 98765 43210",
+  headline: "AI & Data Science Graduate | Full-Stack & AI Product Developer",
+  current_location: "Chennai",
+  relocation_preference: "Chennai (OMR, Guindy, Siruseri, Ambattur) & Remote India",
+  preferred_work_modes: ["remote", "hybrid", "onsite"],
+  preferred_roles: [
+    "Frontend Developer",
+    "AI / AI Product Developer",
+    "Data Analyst",
+    "Data Scientist",
+    "Full-stack Developer"
+  ],
+  min_match_score: 75,
+  search_frequency: "hourly",
+  education: [
+    {
+      id: "edu-sanjay-1",
+      institution: "Anna University",
+      degree: "B.Tech Artificial Intelligence and Data Science (AI & DS)",
+      field_of_study: "Artificial Intelligence & Data Science",
+      start_year: 2022,
+      end_year: 2026,
+      cgpa_or_percentage: "8.5 CGPA"
+    }
+  ],
+  skills: [
+    { id: "sk-1", skill_name: "React", category: "framework", proficiency: "advanced" },
+    { id: "sk-2", skill_name: "Next.js", category: "framework", proficiency: "advanced" },
+    { id: "sk-3", skill_name: "TypeScript", category: "language", proficiency: "intermediate" },
+    { id: "sk-4", skill_name: "Python", category: "language", proficiency: "advanced" },
+    { id: "sk-5", skill_name: "FastAPI", category: "framework", proficiency: "intermediate" },
+    { id: "sk-6", skill_name: "Machine Learning & AI", category: "technical", proficiency: "intermediate" },
+    { id: "sk-7", skill_name: "Data Analysis & Pandas", category: "technical", proficiency: "intermediate" },
+    { id: "sk-8", skill_name: "PostgreSQL", category: "technical", proficiency: "intermediate" },
+    { id: "sk-9", skill_name: "Tailwind CSS", category: "tool", proficiency: "advanced" }
+  ],
+  projects: [
+    {
+      id: "proj-1",
+      title: "AutoApply AI - Personal Operator Command Center",
+      description: "Automated job discovery and 75% match gate for Chennai and Remote opportunities.",
+      technologies: ["Next.js", "FastAPI", "Python", "TypeScript", "PostgreSQL"],
+      github_url: "https://github.com/SANJAYJOY2K5/autoapply"
+    }
+  ],
+  resumes: [],
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString()
+};
+
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<CandidateProfile | null>(null);
+  const [profile, setProfile] = useState<CandidateProfile>(DEFAULT_SANJAY_PROFILE);
   const [activeTab, setActiveTab] = useState<"preferences" | "education" | "skills" | "projects" | "resume">("preferences");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
@@ -53,9 +107,11 @@ export default function ProfilePage() {
     async function fetchProfile() {
       try {
         const data = await apiClient.getProfile();
-        setProfile(data);
+        if (data && data.full_name) {
+          setProfile(data);
+        }
       } catch (err: any) {
-        console.error("Failed to load profile:", err);
+        console.warn("Using personal operator profile cache:", err);
       } finally {
         setLoading(false);
       }
@@ -191,17 +247,6 @@ export default function ProfilePage() {
       setUploadingResume(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="p-12 text-center text-slate-400">
-        <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-        <p className="text-sm">Loading candidate profile...</p>
-      </div>
-    );
-  }
-
-  if (!profile) return null;
 
   return (
     <div className="space-y-6">
