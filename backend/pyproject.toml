@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoapply-backend"
+version = "1.0.0"
+description = "AutoApply AI FastAPI Backend Service"
+authors = [{ name = "AutoApply AI Team" }]
+readme = "README.md"
+requires-python = ">=3.8"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+

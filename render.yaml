@@ -1,0 +1,68 @@
+# ==============================================================================
+# AutoApply AI — Render Infrastructure Blueprint (render.yaml)
+# Defines 24/7 Always-On Backend API, Celery Background Worker, and Redis
+# ==============================================================================
+
+services:
+  # 1. FastAPI Web API Service
+  - type: web
+    name: autoapply-backend-api
+    runtime: python
+    region: singapore # Closest low-latency Render region to Chennai/India
+    plan: starter
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.8.10
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: '["https://*.vercel.app","http://localhost:3000"]'
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: autoapply-redis
+          property: connectionString
+      - key: FEATURE_AUTO_APPLY_ENABLED
+        value: "false"
+
+  # 2. 24/7 Background Worker (Always-On Scheduler for Discovery & Applications)
+  - type: worker
+    name: autoapply-worker
+    runtime: python
+    region: singapore
+    plan: starter
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "celery -A app.workers.celery_app worker -B --loglevel=info"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.8.10
+      - key: ENVIRONMENT
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: autoapply-redis
+          property: connectionString
+
+# 3. Redis Queue & Schedule Broker
+databases:
+  - name: autoapply-redis
+    region: singapore
+    plan: free
+    ipAllowList: [] # Only internal Render services can access
